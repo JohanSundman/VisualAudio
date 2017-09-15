@@ -9,6 +9,11 @@ function Visualizer(canvas){
 
 	// Data
 	this.MAX_VOLUME = 255; // The highest possible data input
+	this.startTime = new Date().getTime();
+	this.now = this.startTime;
+	this.lastTime = this.now;
+	this.deltaTime = null; // Time difference
+	this.tempTime = null; // Used to set a temporary time
 
 	// Visual
 	this.amount = 120; // Amount of data points to render
@@ -31,11 +36,24 @@ function Visualizer(canvas){
 	});
 	this.resize(); // Resize
 	
+	
 	// Set the animation loop
-	setInterval(function(){
+	this.update = function(){
+		this.now = new Date().getTime();
+		this.deltaTime = this.now - this.lastTime;
+		fps = 1000 / this.deltaTime; // (1 second / dt[seconds])
+		console.log(fps);
+		
+		// Update
 		self.draw();
-	}, 1000 / 60);
-
+		
+		// Prepare for next update
+		this.lastTime = this.now; // Now will be last time next update
+		requestAnimationFrame(self.update); // Request another update
+	}
+	requestAnimationFrame(this.update);
+	
+	
 	// Collect the data
 	this.read = function(frequency){
 		self.data = frequency;
