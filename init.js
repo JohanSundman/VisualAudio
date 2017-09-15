@@ -13,11 +13,7 @@
 
 
 // The song
-var songPath = ["audio/Mentai.mp3",
-				"audio/overtime.mp3",
-				"audio/virtualRiot.mp3",
-				"audio/TheBigBlack.mp3",
-				"audio/Koi.mp3"];
+var songPath = [""]; // <-- Insert strings with audio file paths
 var songIndex = Math.round(Math.random()*songPath.length);
 
 // Visualizer setup
